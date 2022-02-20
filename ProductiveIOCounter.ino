@@ -6,14 +6,11 @@
 
 ESP8266WiFiMulti WiFiMulti;
 
-//const char* STONE_STAMCOR_SSID = "Stone Stamcor";
-//const char* STONE_STAMCOR_PWD = "194201514007";
-//const String SERVER_IP = "10.10.20.35";
-const char* STONE_STAMCOR_SSID = "Pietsama [2Ghz]";
-const char* STONE_STAMCOR_PWD = "67676767";
-const String SERVER_IP = "192.168.101.209";
+const char* STONE_STAMCOR_SSID = "Stone Stamcor";
+const char* STONE_STAMCOR_PWD = "194201514007";
+const String SERVER_IP = "10.10.20.35";
 
-const String MACHINE_ID = "1";
+const String MACHINE_ID = "6";
 const int DEFAULT_UPLOAD_MINUTE = 5;
 
 const int PIN_SWITCH = D1;
@@ -87,6 +84,10 @@ void setupUploadTime(){
       if (httpCode > 0) {
         String payload = http.getString();
         uploadMinute = payload.toInt();
+
+        if (uploadMinute == 0){
+          uploadMinute = DEFAULT_UPLOAD_MINUTE;
+        }
 
         Serial.println("Upload time set to every " + String(uploadMinute) + " minutes");
       }
